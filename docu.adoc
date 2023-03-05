@@ -1,0 +1,2 @@
+https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/mqtt/mqtt.html[infos]
+
