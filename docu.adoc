@@ -1,2 +1,91 @@
+= MQTT
+== Was ist MQTT?
+MQTT steht für Message Queuing Telemetry Transport
+MQTT ist ein Messaging-Protokoll das für die Kommunikation von Maschine zu Maschine verwendet wird.
+
+== Architektur
+
+=== Was ist ein Broker?
+Ein Server, welcher von den Clients benutzt wird.
+Der Broker empfängt die Nachricht der Clients und sendet diese zu andere Clients weiter.
+Das heißt die Clients koomunizieren nicht direkt mit einander, sondern verbinden sich beide mit dem Broker.
+
+== Tutorial
+
+=== Verbindung zu MQTT herstellen
+Zuerst muss die Verbindung zu dem Broker im `application.properties` konfiguriert werden:
+
+[source,shell]
+----
+mp.messaging.incoming.channelname.connector=smallrye-mqtt
+
+mp.messaging.incoming.channelname.host=public.mqtthq.com
+
+mp.messaging.incoming.channelname.port=1883
+
+mp.messaging.incoming.channelname.topic=topicname/#
+----
+
+. Es wird ein MQTT-Connector namens "smallrye-mqtt" verwendet.
+
+. Es wird zum öffentlichen MQTT-Broker "public.mqtthq.com"
+
+. auf Port 1883 verbunden.
+
+. Die Nachrichten werden dann unter "topicname/#" empfangen. Die Raute steht für alles was nach "topicname/" kommt.
+
+`channelname` ist ein frei erfundener Name, welcher anschliesend im Code mittels der `@Incoming` Annotation refernziert wird.
+
+Zum Testen, ob die Nachrichtent dann auch ankommen, habe ich einen online https://mqtthq.com/client[MQTT Web Client] gefunden.
+Natürlich muss der Name des Topics übereinstimmen.
+
+=== Einen Empfänger erstelln
+[source, java]
+----
+@ApplicationScoped
+public class MqttReceiver {
+
+    private Logger logger = Logger.getLogger(MqttReceiver.class.getName());
+
+    @Incoming("channelname")
+    public void receiveMessage(byte[] byteArray) {
+        String messageString = new String(byteArray);
+        logger.info("Received raw message: " + messageString);
+    }
+
+}
+----
+Die Methode `getLogger()` sucht einen Logger und wenn ein Logger mit dem übergebenen Namen existiert, gibt die Methode diesen Logger zurück.
+Andernfalls erstellt die Methode einen neuen Logger mit diesem Namen und gibt diesen zurück.
+
+Die Methode `receiveMessage()` akzeptiert ein Byte-Array als Eingabe und konvertiert es dann in ein String.
+Der Logger protokolliert die Message.
+
+==== Starten
+[source, shell]
+----
+./mvnw quarkus:dev
+----
+
+Wenn dein Quarkus Projekt erfolgreich gebaut hat sollte folgendes ausgeben werden:
+[source, shell]
+----
+Connection with public.mqtthq.com:1883 established successfully
+Connection with public.mqtthq.com:1883 established successfully
+Subscription outcome: Future{result=0}
+----
+
+Sollten Probleme bezüglich des Ports auftreten, versuche dies:
+[source, shell]
+----
+netstat -anop | grep
+
+kill -9 <ProzessID>
+----
+
+==== Testen
+Wie schon bereits im obigen Text beschrieben, kann nun unser Nachrichtenempfänger mittels einem online https://mqtthq.com/client[MQTT Web Client] geprüft werden, ob auch wirklich Nachrichten ankommen.
+
+
 https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/mqtt/mqtt.html[infos]
 
