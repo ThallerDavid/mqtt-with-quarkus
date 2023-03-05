@@ -1,9 +1,18 @@
 = MQTT
+David Thaller
+:icons: font
+:url-quickref: https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/
+:sourcedir: ../src/main/java
+:icons: font
+:sectnums:    // Nummerierung der Überschriften / section numbering
+:toc: left
+
 == Was ist MQTT?
 MQTT steht für Message Queuing Telemetry Transport
 MQTT ist ein Messaging-Protokoll das für die Kommunikation von Maschine zu Maschine verwendet wird.
 
 == Architektur
+image::images/mqtt_Architektur.png[]
 
 === Was ist ein Broker?
 Ein Server, welcher von den Clients benutzt wird.
@@ -34,12 +43,12 @@ mp.messaging.incoming.channelname.topic=topicname/#
 
 . Die Nachrichten werden dann unter "topicname/#" empfangen. Die Raute steht für alles was nach "topicname/" kommt.
 
-`channelname` ist ein frei erfundener Name, welcher anschliesend im Code mittels der `@Incoming` Annotation refernziert wird.
+NOTE: `channelname` ist ein frei erfundener Name, welcher anschliesend im Code mittels der `@Incoming` Annotation refernziert wird.
 
 Zum Testen, ob die Nachrichtent dann auch ankommen, habe ich einen online https://mqtthq.com/client[MQTT Web Client] gefunden.
 Natürlich muss der Name des Topics übereinstimmen.
 
-=== Einen Empfänger erstelln
+=== Einen Empfänger erstellen
 [source, java]
 ----
 @ApplicationScoped
@@ -83,9 +92,11 @@ netstat -anop | grep
 kill -9 <ProzessID>
 ----
 
-==== Testen
+=== Einen Sender erstellen
+
+=== Testen
 Wie schon bereits im obigen Text beschrieben, kann nun unser Nachrichtenempfänger mittels einem online https://mqtthq.com/client[MQTT Web Client] geprüft werden, ob auch wirklich Nachrichten ankommen.
 
 
-https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/mqtt/mqtt.html[infos]
+TIP: https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/mqtt/mqtt.html[Quelle]
 
