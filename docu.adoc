@@ -17,7 +17,7 @@ image::images/mqtt_Architektur.png[]
 === Was ist ein Broker?
 Ein Server, welcher von den Clients benutzt wird.
 Der Broker empfängt die Nachricht der Clients und sendet diese zu andere Clients weiter.
-Das heißt die Clients koomunizieren nicht direkt mit einander, sondern verbinden sich beide mit dem Broker.
+Das heißt die Clients kommunizieren nicht direkt mit einander, sondern verbinden sich beide mit dem Broker.
 
 == Tutorial
 
@@ -43,9 +43,9 @@ mp.messaging.incoming.channelname.topic=topicname/#
 
 . Die Nachrichten werden dann unter "topicname/#" empfangen. Die Raute steht für alles was nach "topicname/" kommt.
 
-NOTE: `channelname` ist ein frei erfundener Name, welcher anschliesend im Code mittels der `@Incoming` Annotation refernziert wird.
+NOTE: `channelname` ist ein frei erfundener Name, welcher anschließend im Code mittels der `@Incoming` Annotation referenziert  wird.
 
-Zum Testen, ob die Nachrichtent dann auch ankommen, habe ich einen online https://mqtthq.com/client[MQTT Web Client] gefunden.
+Zum Testen, ob die Nachrichten dann auch ankommen, habe ich einen online https://mqtthq.com/client[MQTT Web Client] gefunden.
 Natürlich muss der Name des Topics übereinstimmen.
 
 === Einen Empfänger erstellen
@@ -76,7 +76,7 @@ Der Logger protokolliert die Message.
 ./mvnw quarkus:dev
 ----
 
-Wenn dein Quarkus Projekt erfolgreich gebaut hat sollte folgendes ausgeben werden:
+Wenn dein Quarkus Projekt erfolgreich gebaut, hat sollte folgendes ausgeben werden:
 [source, shell]
 ----
 Connection with public.mqtthq.com:1883 established successfully
