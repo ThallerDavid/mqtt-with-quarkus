@@ -21,7 +21,7 @@ public class MqttReceiver {
     @Incoming("channelname")
     public void receiveMessage(byte[] byteArray) {
         String messageString = new String(byteArray);
-        logger.info("Received raw message: " + messageString);
+        logger.info("Received message: " + messageString);
     }
 
 }

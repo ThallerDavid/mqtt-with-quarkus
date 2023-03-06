@@ -93,6 +93,37 @@ kill -9 <ProzessID>
 ----
 
 === Einen Sender erstellen
+==== `application.properties` konfigurieren:
+
+[source,shell]
+----
+# Outbound
+mp.messaging.outgoing.channelname2.connector=smallrye-mqtt
+
+mp.messaging.outgoing.channelname2.host=public.mqtthq.com
+
+mp.messaging.outgoing.channelname2.port=1883
+
+mp.messaging.outgoing.channelname2.topic=topicname/
+----
+
+Zum Senden muss logischerweise `outgoing` und ein anderer beliebiger Channelname verwendet werden.
+
+==== Code
+[source, java]
+----
+@ApplicationScoped
+public class MqttSender {
+
+    @Outgoing("channelname2")
+    public byte[] sendMessage() {
+            return "Hello i am David!".getBytes();
+        }
+
+    }
+----
+
+IMPORTANT: Es wird ständig die Message gesendet. Bedauerlicherweise habe ich es noch nicht geschafft dieses Problem zu beheben.
 
 === Testen
 Wie schon bereits im obigen Text beschrieben, kann nun unser Nachrichtenempfänger mittels einem online https://mqtthq.com/client[MQTT Web Client] geprüft werden, ob auch wirklich Nachrichten ankommen.
