@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class MqttSender {
 
-    @Outgoing("channelname2")
+   @Outgoing("channelname2")
     public byte[] sendMessage() {
             return "Hello i am David!".getBytes();
         }

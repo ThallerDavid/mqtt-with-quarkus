@@ -9,6 +9,7 @@ David Thaller
 
 == Was ist MQTT?
 MQTT steht für Message Queuing Telemetry Transport
+
 MQTT ist ein Messaging-Protokoll das für die Kommunikation von Maschine zu Maschine verwendet wird.
 
 == Architektur
